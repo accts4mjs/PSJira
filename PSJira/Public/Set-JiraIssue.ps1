@@ -87,7 +87,11 @@ function Set-JiraIssue
             if ($Assignee -eq 'Unassigned')
             {
                 Write-Debug "[Set-JiraIssue] 'Unassigned' String passed. Issue will be assigned to no one."
-                $assigneeString = ""
+                $assigneeString = $null
+                $validAssignee = $true
+            } else if ($Assignee -eq 'Default') {
+                Write-Debug "[Set-JiraIssue] 'Default' String passed. Issue will be assigned to default user."
+                $assigneeString = -1
                 $validAssignee = $true
             } else {
                 Write-Debug "[Set-JiraIssue] Attempting to obtain Jira user [$Assignee]"
